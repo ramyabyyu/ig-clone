@@ -11,6 +11,8 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExploreIcon from "@material-ui/icons/Explore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import HomeIcon from "@material-ui/icons/Home";
+import { Link } from "react-router-dom";
+import * as Path from "../../routeNames";
 
 import useStyles from "./styles";
 
@@ -23,7 +25,12 @@ const Navbar = () => {
   return (
     <AppBar position="static" color="inherit" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h5" className={classes.brand}>
+        <Typography
+          variant="h5"
+          className={classes.brand}
+          component={Link}
+          to={Path.HOME}
+        >
           Instagram
         </Typography>
         <div>

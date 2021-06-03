@@ -12,6 +12,8 @@ export default makeStyles((theme) => ({
   },
   brand: {
     fontFamily: "'Pacifico', cursive",
+    textDecoration: "none",
+    color: "#222",
   },
   buttonBar: {
     [theme.breakpoints.down("xs")]: {
