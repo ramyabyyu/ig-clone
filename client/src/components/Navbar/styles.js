@@ -17,11 +17,11 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       display: "none",
     },
-    margin: "10px",
-    paddingLeft: "16px",
-    right: 0,
-    position: "relative",
-    width: "100%",
-    background: "transparent",
+    // margin: "10px",
+    // paddingLeft: "16px",
+    // right: 0,
+    // position: "relative",
+    // width: "100%",
+    // background: "transparent",
   },
 }));
