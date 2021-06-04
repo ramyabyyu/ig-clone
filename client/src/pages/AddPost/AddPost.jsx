@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { ReactVideo } from "reactjs-media";
 import { Button, Card, Container } from "@material-ui/core";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import VideoCallIcon from "@material-ui/icons/VideoCall";
@@ -103,9 +104,7 @@ const AddPost = () => {
                 className={classes.imgPreview}
               />
             ) : (
-              <video width={320} height={420} controls>
-                <source src={contentPreview} type="video/*" />
-              </video>
+              <ReactVideo src={contentPreview} primaryColor="blue" />
             )}
           </div>
           <div className={classes.buttons}>
