@@ -43,6 +43,19 @@ export default makeStyles((theme) => ({
       outline: "none",
     },
   },
+  imgPreview: {
+    width: "300px",
+    height: "300px",
+    objectFit: "contain",
+  },
+  preview: {
+    margin: theme.spacing(2),
+    display: "flex",
+    justifyContent: "center",
+  },
+  displayNone: {
+    display: "none",
+  },
   buttons: {
     display: "flex",
     justifyContent: "space-around",
