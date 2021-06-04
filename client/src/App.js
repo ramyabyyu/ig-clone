@@ -5,6 +5,7 @@ import * as Path from "./routeNames";
 // components and pages
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
+import AddPost from "./pages/AddPost/AddPost";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path={Path.HOME} component={Home} />
+          <Route exact path={Path.POST} component={AddPost} />
         </Switch>
       </Container>
     </BrowserRouter>

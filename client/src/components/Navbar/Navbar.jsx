@@ -35,7 +35,7 @@ const Navbar = () => {
         </Typography>
         <div>
           <DropdownMenu anchorEl={anchorEl} handleOpen={handleOpen}>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleClose} component={Link} to={Path.HOME}>
               <HomeIcon /> Home
             </MenuItem>
             <MenuItem onClick={handleClose}>
@@ -47,7 +47,7 @@ const Navbar = () => {
           </DropdownMenu>
         </div>
         <div className={classes.buttonBar}>
-          <Button color="inherit">
+          <Button color="inherit" component={Link} to={Path.HOME}>
             <HomeIcon />
           </Button>
           <Button color="inherit">
