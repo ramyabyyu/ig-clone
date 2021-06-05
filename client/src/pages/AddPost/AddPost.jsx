@@ -50,11 +50,15 @@ const AddPost = () => {
 
     console.log(postData);
 
+    const reader = new FileReader();
+    reader.onload = () => (postData.content = reader.result);
+    reader.readAsDataURL(postData.content);
+
     const formData = new FormData();
     formData.append("user", postData.user);
     formData.append("caption", postData.caption);
-    formData.append("tags", postData.tags);
     formData.append("content", postData.content);
+    formData.append("tags", postData.tags);
 
     dispatch(createPost(formData, history));
   };
@@ -107,7 +111,7 @@ const AddPost = () => {
               name="tags"
               placeholder="Tags (separated by comma)"
               onChange={(e) =>
-                setPostData({ ...postData, tags: e.target.value.split(",") })
+                setPostData({ ...postData, tags: e.target.value })
               }
               className={classes.tagsInput}
             />
