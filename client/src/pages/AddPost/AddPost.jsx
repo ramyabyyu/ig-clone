@@ -5,14 +5,23 @@ import VideoCallIcon from "@material-ui/icons/VideoCall";
 import SendIcon from "@material-ui/icons/Send";
 import useStyles from "./styles";
 
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+// actions
+import { createPost } from "../../redux/actions/posts";
+
 const postInitialState = {
-  user: "",
+  user: "Ramy Abyyu",
   caption: "",
   content: null,
   tags: "",
 };
 
 const AddPost = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // state hooks
   const [postData, setPostData] = useState(postInitialState);
   const [contentFileType, setContentFileType] = useState("");
@@ -40,7 +49,14 @@ const AddPost = () => {
     e.preventDefault();
 
     console.log(postData);
-    setPostData(postInitialState);
+
+    const formData = new FormData();
+    formData.append("user", postData.user);
+    formData.append("caption", postData.caption);
+    formData.append("tags", postData.tags);
+    formData.append("content", postData.content);
+
+    dispatch(createPost(formData, history));
   };
 
   useEffect(() => {
@@ -108,6 +124,7 @@ const AddPost = () => {
             ) : (
               <video autoPlay id="video" width={320} height={240} controls>
                 <source id="source" type="video/mp4" />
+                We only support for mp4 video
               </video>
             )}
           </div>
