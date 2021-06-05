@@ -1,29 +1,32 @@
-import React from "react";
-import { Button, Card, CardActions, Grid } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import { Link } from "react-router-dom";
-import * as Path from "../../routeNames";
-import useStyles from "./styles";
+import React, { useEffect } from "react";
+import { Grid } from "@material-ui/core";
+import AddPostButton from "../../components/AddPostButton/AddPostButton";
+import PostContainer from "../../components/Posts/PostContainer";
+
+import { useDispatch } from "react-redux";
+import { getPosts } from "../../redux/actions/posts";
 
 const Home = () => {
-  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
   return (
-    <Grid container spacing={3}>
-      <Grid item md={7} xs={12}>
-        <Card className={classes.card}>
-          <CardActions>
-            <Button
-              color="primary"
-              variant="contained"
-              component={Link}
-              to={Path.POST}
-            >
-              <AddIcon fontSize="large" color="inherit" /> Add Post
-            </Button>
-          </CardActions>
-        </Card>
+    <>
+      {/* add post form */}
+      <Grid container spacing={3}>
+        <Grid item md={7} xs={12}>
+          <AddPostButton />
+        </Grid>
       </Grid>
-    </Grid>
+      {/* post container */}
+      <Grid container spacing={3}>
+        <Grid item md={7} xs={12}>
+          <PostContainer />
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
