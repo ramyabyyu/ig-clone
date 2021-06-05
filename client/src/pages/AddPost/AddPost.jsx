@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ReactVideo } from "reactjs-media";
 import { Button, Card, Container } from "@material-ui/core";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import VideoCallIcon from "@material-ui/icons/VideoCall";
@@ -26,7 +25,6 @@ const AddPost = () => {
 
   const handleVideoChange = (files) => {
     setPostData({ ...postData, content: files });
-    convertToBase64(files);
   };
 
   // for images
@@ -36,16 +34,6 @@ const AddPost = () => {
   // for videos
   const hiddenVideoInput = useRef(null);
   const handleVideoInput = (e) => hiddenVideoInput.current.click();
-
-  // convert to base64
-  const convertToBase64 = (files) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      localStorage.setItem("content-preview", reader.result);
-    };
-
-    reader.readAsDataURL(files);
-  };
 
   //   handlesubmit
   const handlePostSubmit = (e) => {
@@ -60,16 +48,30 @@ const AddPost = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         let result = reader.result;
-        setContentPreview(result);
 
         let fileType = result.substring(5, 10);
-        if (fileType === "image") setContentFileType("image");
-        else setContentFileType("video");
-      };
 
+        if (fileType === "image") {
+          setContentFileType("image");
+          setContentPreview(result);
+        } else {
+          setContentFileType("video");
+          setContentPreview(result);
+          const video = document.getElementById("video");
+          const source = document.getElementById("source");
+          source.setAttribute("src", result);
+          video.load();
+          video.play();
+        }
+      };
       reader.readAsDataURL(postData.content);
     } else setContentPreview(null);
   }, [postData.content]);
+
+  // debug to see what inside postData.content
+  // useEffect(() => {
+  //   console.log(postData.content);
+  // }, [postData.content]);
 
   const classes = useStyles();
   return (
@@ -104,7 +106,9 @@ const AddPost = () => {
                 className={classes.imgPreview}
               />
             ) : (
-              <ReactVideo src={contentPreview} primaryColor="blue" />
+              <video autoPlay id="video" width={320} height={240} controls>
+                <source id="source" type="video/mp4" />
+              </video>
             )}
           </div>
           <div className={classes.buttons}>
