@@ -15,7 +15,7 @@ const router = Router();
 router.get("/post", PostController.getPosts);
 router.post(
   "/post",
-  fileUpload("content", "CONTENT", contentFileFilter).single("content"),
+  fileUpload("public/content", "CONTENT", contentFileFilter).single("content"),
   PostController.createPost
 );
 

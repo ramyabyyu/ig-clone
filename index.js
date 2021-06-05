@@ -2,8 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
+// import path, { dirname } from "path";
+// import { fileURLToPath } from "url";
 
 import api from "./routes/api.js";
 
@@ -16,8 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // static files
-const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use("/content", express.static(path.join(__dirname, "public")));
+// const __dirname = dirname(fileURLToPath(import.meta.url));
+// app.use("/content", express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 
 // apis
 app.use("/api", api);

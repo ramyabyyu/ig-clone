@@ -1,5 +1,7 @@
 import axios from "axios";
-import { apiUrl as url } from "../../apiUrl";
+import { apiUrl } from "../../apiUrl";
 
-export const getPosts = () => axios.get(`${url}/api/post`);
-export const createPost = (post) => axios.post(`${url}/api/post`, post);
+const url = `${apiUrl}/api`;
+
+export const getPosts = () => axios.get(`${url}/post`);
+export const createPost = (post) => axios.post(`${url}/post`, post);
