@@ -24,16 +24,15 @@ const AddPost = () => {
 
   // state hooks
   const [postData, setPostData] = useState(postInitialState);
-  const [contentFileType, setContentFileType] = useState("");
   const [contentPreview, setContentPreview] = useState(null);
+  const [contentFileType, setContentFileType] = useState("");
+  const [base64, setBase64] = useState(null);
 
-  // onchange input
-  const handleImageChange = (files) => {
-    setPostData({ ...postData, content: files });
-  };
-
-  const handleVideoChange = (files) => {
-    setPostData({ ...postData, content: files });
+  // handleFileChange and convert to bas64
+  const handleFileChange = (files) => {
+    const reader = new FileReader();
+    reader.onloadend = () => setBase64(reader.result);
+    reader.readAsDataURL(files);
   };
 
   // for images
@@ -47,51 +46,36 @@ const AddPost = () => {
   //   handlesubmit
   const handlePostSubmit = (e) => {
     e.preventDefault();
-
-    console.log(postData);
-
-    const reader = new FileReader();
-    reader.onload = () => (postData.content = reader.result);
-    reader.readAsDataURL(postData.content);
-
-    const formData = new FormData();
-    formData.append("user", postData.user);
-    formData.append("caption", postData.caption);
-    formData.append("content", postData.content);
-    formData.append("tags", postData.tags);
-
-    dispatch(createPost(formData, history));
+    dispatch(createPost({ ...postData, content: base64 }, history));
   };
 
+  // preview image and video
   useEffect(() => {
-    if (postData.content) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        let result = reader.result;
-
-        let fileType = result.substring(5, 10);
-
-        if (fileType === "image") {
-          setContentFileType("image");
-          setContentPreview(result);
-        } else {
-          setContentFileType("video");
-          setContentPreview(result);
-          const video = document.getElementById("video");
-          const source = document.getElementById("source");
-          source.setAttribute("src", result);
-          video.load();
-          video.play();
-        }
-      };
-      reader.readAsDataURL(postData.content);
+    if (base64) {
+      let fileType = base64.substring(5, 10);
+      if (fileType === "image") {
+        setContentFileType("image");
+        setContentPreview(base64);
+      } else {
+        setContentFileType("video");
+        setContentPreview(base64);
+        const video = document.getElementById("video");
+        const source = document.getElementById("source");
+        source.setAttribute("src", base64);
+        video.load();
+        video.play();
+      }
     } else setContentPreview(null);
-  }, [postData.content]);
+  }, [base64]);
 
-  // debug to see what inside postData.content
-  // useEffect(() => {
-  //   console.log(postData.content);
-  // }, [postData.content]);
+  useEffect(() => {
+    const video = document.getElementById("video");
+    const source = document.getElementById("source");
+
+    console.log(video);
+    console.log(source);
+    console.log(contentPreview);
+  }, [base64]);
 
   const classes = useStyles();
   return (
@@ -120,11 +104,7 @@ const AddPost = () => {
             className={contentPreview ? classes.preview : classes.displayNone}
           >
             {contentFileType === "image" ? (
-              <img
-                src={contentPreview}
-                alt="Image Preview"
-                className={classes.imgPreview}
-              />
+              <img src={base64} className={classes.imgPreview} />
             ) : (
               <video autoPlay id="video" width={320} height={240} controls>
                 <source id="source" type="video/mp4" />
@@ -137,14 +117,14 @@ const AddPost = () => {
               type="file"
               ref={hiddenImageInput}
               accept="image/*"
-              onChange={(e) => handleImageChange(e.target.files[0])}
+              onChange={(e) => handleFileChange(e.target.files[0])}
               style={{ display: "none" }}
             />
             <input
               type="file"
               ref={hiddenVideoInput}
               accept="video/*"
-              onChange={(e) => handleVideoChange(e.target.files[0])}
+              onChange={(e) => handleFileChange(e.target.files[0])}
               style={{ display: "none" }}
             />
             <Button color="inherit" onClick={handleImageInput}>
