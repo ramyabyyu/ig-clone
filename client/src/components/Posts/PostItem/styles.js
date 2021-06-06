@@ -1,4 +1,4 @@
-import { red } from "@material-ui/core/colors";
+import { blue, red } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
@@ -19,5 +19,24 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  video: {
+    width: "100%",
+  },
+  mediaVideo: {
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  playVideoIcon: {
+    position: "absolute",
+    color: "#fff",
+    cursor: "pointer",
+    fontSize: "10rem",
+  },
+  tags: {
+    color: blue[500],
+    marginTop: theme.spacing(2),
   },
 }));
