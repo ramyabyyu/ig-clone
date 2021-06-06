@@ -12,4 +12,12 @@ export default makeStyles((theme) => ({
     width: "100%",
     paddingTop: "56.25%", // 16:9
   },
+  shareIcon: {
+    transform: "rotate(-45deg)",
+  },
+  cardActions: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 }));
