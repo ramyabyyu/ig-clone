@@ -13,10 +13,14 @@ const router = Router();
 
 // post api
 router.get("/post", PostController.getPosts);
+<<<<<<< HEAD
 router.post(
   "/post",
   fileUpload("public/content", "CONTENT", contentFileFilter).single("content"),
   PostController.createPost
 );
+=======
+router.post("/post", PostController.createPost);
+>>>>>>> contentDataUrl
 
 export default router;

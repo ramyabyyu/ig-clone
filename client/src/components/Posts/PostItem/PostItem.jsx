@@ -14,27 +14,34 @@ import { apiUrl } from "../../../apiUrl";
 const PostItem = ({ post }) => {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="username" className={classes.avatar}>
-            RA
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="more">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={post.user}
-        subheader="Example Post wkkwkw"
-      />
-      <img
-        src={`${apiUrl}/${post.content.replace("\\", "/")}`}
-        alt="example post media"
-        className={classes.media}
-      />
-    </Card>
+    // <Card className={classes.root}>
+    //   <CardHeader
+    //     avatar={
+    //       <Avatar aria-label="username" className={classes.avatar}>
+    //         RA
+    //       </Avatar>
+    //     }
+    //     action={
+    //       <IconButton aria-label="more">
+    //         <MoreVertIcon />
+    //       </IconButton>
+    //     }
+    //     title={post.user}
+    //     subheader="Example Post wkkwkw"
+    //   />
+    //   <img
+    //     src={post.content}
+    //     alt="example post media"
+    //     className={classes.media}
+    //   />
+    // </Card>
+    <img
+      src={`http://127.0.0.1:8080/public/content/${post.content.replace(
+        "\\",
+        "/"
+      )}`}
+      alt=""
+    />
   );
 };
 

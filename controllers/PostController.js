@@ -13,12 +13,7 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   const post = req.body;
-  const tags = post.tags.split(",");
-  const newPost = new Post({
-    ...post,
-    content: req.file.path,
-    tags: [...tags],
-  });
+  const newPost = new Post({ ...post });
 
   try {
     await newPost.save();

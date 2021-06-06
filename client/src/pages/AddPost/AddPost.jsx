@@ -24,17 +24,8 @@ const AddPost = () => {
 
   // state hooks
   const [postData, setPostData] = useState(postInitialState);
-  const [contentFileType, setContentFileType] = useState("");
   const [contentPreview, setContentPreview] = useState(null);
-
-  // onchange input
-  const handleImageChange = (files) => {
-    setPostData({ ...postData, content: files });
-  };
-
-  const handleVideoChange = (files) => {
-    setPostData({ ...postData, content: files });
-  };
+  const [contentFileType, setContentFileType] = useState("");
 
   // for images
   const hiddenImageInput = useRef(null);
@@ -44,27 +35,23 @@ const AddPost = () => {
   const hiddenVideoInput = useRef(null);
   const handleVideoInput = (e) => hiddenVideoInput.current.click();
 
+  // file change
+  const handleFileChange = (files) => {
+    setPostData({ ...postData, content: files });
+  };
+
   //   handlesubmit
   const handlePostSubmit = (e) => {
     e.preventDefault();
-
-    console.log(postData);
-
-    const formData = new FormData();
-    formData.append("user", postData.user);
-    formData.append("caption", postData.caption);
-    formData.append("tags", postData.tags);
-    formData.append("content", postData.content);
-
-    dispatch(createPost(formData, history));
+    dispatch(createPost({ ...postData, content: contentPreview }, history));
   };
 
+  // preview image and video
   useEffect(() => {
     if (postData.content) {
       const reader = new FileReader();
       reader.onloadend = () => {
         let result = reader.result;
-
         let fileType = result.substring(5, 10);
 
         if (fileType === "image") {
@@ -73,6 +60,7 @@ const AddPost = () => {
         } else {
           setContentFileType("video");
           setContentPreview(result);
+
           const video = document.getElementById("video");
           const source = document.getElementById("source");
           source.setAttribute("src", result);
@@ -83,11 +71,6 @@ const AddPost = () => {
       reader.readAsDataURL(postData.content);
     } else setContentPreview(null);
   }, [postData.content]);
-
-  // debug to see what inside postData.content
-  // useEffect(() => {
-  //   console.log(postData.content);
-  // }, [postData.content]);
 
   const classes = useStyles();
   return (
@@ -107,7 +90,7 @@ const AddPost = () => {
               name="tags"
               placeholder="Tags (separated by comma)"
               onChange={(e) =>
-                setPostData({ ...postData, tags: e.target.value.split(",") })
+                setPostData({ ...postData, tags: e.target.value })
               }
               className={classes.tagsInput}
             />
@@ -116,11 +99,7 @@ const AddPost = () => {
             className={contentPreview ? classes.preview : classes.displayNone}
           >
             {contentFileType === "image" ? (
-              <img
-                src={contentPreview}
-                alt="Image Preview"
-                className={classes.imgPreview}
-              />
+              <img src={contentPreview} className={classes.imgPreview} />
             ) : (
               <video autoPlay id="video" width={320} height={240} controls>
                 <source id="source" type="video/mp4" />
@@ -133,14 +112,14 @@ const AddPost = () => {
               type="file"
               ref={hiddenImageInput}
               accept="image/*"
-              onChange={(e) => handleImageChange(e.target.files[0])}
+              onChange={(e) => handleFileChange(e.target.files[0])}
               style={{ display: "none" }}
             />
             <input
               type="file"
               ref={hiddenVideoInput}
               accept="video/*"
-              onChange={(e) => handleVideoChange(e.target.files[0])}
+              onChange={(e) => handleFileChange(e.target.files[0])}
               style={{ display: "none" }}
             />
             <Button color="inherit" onClick={handleImageInput}>
