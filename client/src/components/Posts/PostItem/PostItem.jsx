@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import useStyles from "./styles";
 import {
   Avatar,
+  Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
   CardMedia,
+  Collapse,
   IconButton,
   Typography,
 } from "@material-ui/core";
@@ -21,29 +23,39 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { checkFileType } from "../../../helpers/checkFileType";
 
 const PostItem = ({ post }) => {
-  const handleVideoPlay = () => {
-    const video = document.getElementById("video");
-    const playIcon = document.getElementById("playVideoIcon");
+  const [captionExpanded, setCaptionExpanded] = useState(false);
 
+  const handleCaptionExpanded = () => {
+    setCaptionExpanded(!captionExpanded);
+  };
+
+  const handleVideoPlay = () => {
+    const video = document.getElementById(`video${post._id}`);
+    const playIcon = document.getElementById(`play${post._id}`);
     video.play();
     playIcon.style.display = "none";
     video.style.cursor = "pointer";
   };
 
   const handleVideoEnd = () => {
-    const video = document.getElementById("video");
-    const playIcon = document.getElementById("playVideoIcon");
+    const video = document.getElementById(`video${post._id}`);
+    const playIcon = document.getElementById(`play${post._id}`);
     video.pause();
     playIcon.style.display = "block";
     video.style.cursor = "auto";
   };
 
   const handleVideoPause = () => {
-    const video = document.getElementById("video");
-    const playIcon = document.getElementById("playVideoIcon");
+    const video = document.getElementById(`video${post._id}`);
+    const playIcon = document.getElementById(`play${post._id}`);
     playIcon.style.display = "block";
     video.style.cursor = "auto";
   };
+
+  useEffect(() => {
+    if (post.caption.length < 116) setCaptionExpanded(true);
+    else setCaptionExpanded(false);
+  }, [post]);
 
   const classes = useStyles();
   return (
@@ -71,7 +83,7 @@ const PostItem = ({ post }) => {
       ) : (
         <div className={classes.mediaVideo}>
           <video
-            id="video"
+            id={`video${post._id}`}
             className={classes.video}
             onEnded={handleVideoEnd}
             onPause={handleVideoPause}
@@ -80,7 +92,7 @@ const PostItem = ({ post }) => {
             <source src={post.content} type="video/mp4" />
           </video>
           <PlayArrowRoundedIcon
-            id="playVideoIcon"
+            id={`play${post._id}`}
             className={classes.playVideoIcon}
             onClick={handleVideoPlay}
           />
@@ -103,12 +115,29 @@ const PostItem = ({ post }) => {
         </IconButton>
       </CardActions>
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {post.caption}
-        </Typography>
-        <Typography variant="body2" className={classes.tags} component="p">
-          {post.tags.map((tag) => `#${tag} `)}
-        </Typography>
+        {captionExpanded ? (
+          <>
+            <Typography variant="body2" component="p">
+              {post.caption}
+            </Typography>
+            <Typography variant="body2" component="p" className={classes.tags}>
+              {post.tags.length > 0 ? (
+                <>{post.tags.map((tag) => (tag !== "" ? `#${tag} ` : ""))}</>
+              ) : (
+                ""
+              )}
+            </Typography>
+          </>
+        ) : (
+          <>
+            <Typography variant="body2" component="p">
+              {post.caption.substring(0, 115) + "..."}
+            </Typography>
+            <Typography component={Button} onClick={setCaptionExpanded}>
+              Show More
+            </Typography>
+          </>
+        )}
       </CardContent>
     </Card>
   );
