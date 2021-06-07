@@ -2,9 +2,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   appBar: {
-    marginBottom: "30px",
-    marginTop: theme.spacing(2),
     borderRadius: "10px",
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(5),
   },
   toolbar: {
     display: "flex",
