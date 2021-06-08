@@ -7,6 +7,7 @@ import useStyles from "./styles";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import AddPost from "./pages/AddPost/AddPost";
+import Auth from "./pages/Auth/Auth";
 
 function App() {
   const classes = useStyles();
@@ -17,6 +18,7 @@ function App() {
         <Switch>
           <Route exact path={Path.HOME} component={Home} />
           <Route exact path={Path.POST} component={AddPost} />
+          <Route exact path={Path.AUTH} component={Auth} />
         </Switch>
       </Container>
     </BrowserRouter>
