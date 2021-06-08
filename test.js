@@ -1,8 +1,6 @@
-const tags = "aowkoakwoka,aokwoakwokwoka,hahahahha,wkwkwkwkw";
-
-function convertToArray(arr) {
-  const result = arr.split(",");
-  return result;
+function isCapital(str) {
+  return !/[a-z]/.test(str) || /[A-Z]/.test(str);
 }
 
-console.log(convertToArray(tags).length);
+console.log(isCapital("Ramy"));
+console.log(isCapital("ramy"));

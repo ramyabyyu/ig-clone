@@ -9,6 +9,7 @@ const userSchema = new Schema({
   // profile
   name: String,
   username: String,
+  avatar: String,
   bio: String,
   website: String,
   followers: { type: [String], default: [] },
