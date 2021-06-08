@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 
 // helpers
-import { isCapital } from "../helpers/index.js";
+import { isCapital, userNameValidate } from "../helpers/index.js";
 
 dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -103,7 +103,9 @@ export const changeProfile = async (req, res) => {
 
   if (!mongoose.Types.ObjectId.isValid(id)) return res.json("User not found");
 
-  const changeProfileInfo = { avatar, bio, website, username };
+  const validUsername = userNameValidate(username);
+
+  const changeProfileInfo = { avatar, bio, website, username: validUsername };
 
   try {
     await User.findByIdAndUpdate(id, changeProfileInfo, { new: true });

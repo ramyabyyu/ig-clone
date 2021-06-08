@@ -1,6 +1,3 @@
-function isCapital(str) {
-  return !/[a-z]/.test(str) || /[A-Z]/.test(str);
-}
+const username = "RamyAbyyu1405";
 
-console.log(isCapital("Ramy"));
-console.log(isCapital("ramy"));
+console.log(username.toLowerCase());
