@@ -4,10 +4,6 @@ import { Router } from "express";
 import * as PostController from "../controllers/PostController.js";
 
 // middlewares
-import fileUpload from "../middlewares/fileUpload.js";
-
-// helpers
-import { contentFileFilter } from "../helpers/fileFilter.js";
 
 const router = Router();
 
