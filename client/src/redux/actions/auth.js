@@ -16,8 +16,3 @@ export const register = (formData, router) => async (dispatch) => {
     console.log(error);
   }
 };
-
-export const changeProfile = (avatar) => async (dispatch) => {
-  try {
-  } catch (error) {}
-};

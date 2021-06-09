@@ -14,6 +14,15 @@ export const register = async (req, res) => {
   const { email, password, firstName, lastName, confirmPassword } = req.body;
 
   // check firstName and lastName character must be lower than 10
+
+  if (firstName === "") {
+    return res.json({
+      success: false,
+      type: "firstName",
+      message: "First Name is required",
+    });
+  }
+
   if (firstName.length > 10) {
     return res.json({
       success: false,
@@ -26,6 +35,13 @@ export const register = async (req, res) => {
       success: false,
       type: "lastName",
       message: "Last Name characters must be lower than 10",
+    });
+  }
+  if (lastName === "") {
+    return res.json({
+      success: false,
+      type: "lastName",
+      message: "Last Name is required",
     });
   }
 

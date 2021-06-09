@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Container, Grid, Paper, Typography } from "@material-ui/core";
 import AuthInput from "../../components/AuthInput/AuthInput";
 import useStyles from "./styles";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+// actions
+import { register } from "../../redux/actions/auth";
 
 const authInitialState = {
   firstName: "",
@@ -12,6 +18,10 @@ const authInitialState = {
 };
 
 const Auth = () => {
+  const { errors } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // state hooks
   const [authData, setAuthData] = useState(authInitialState);
   const [authError, setAuthError] = useState(authInitialState);
@@ -40,7 +50,48 @@ const Auth = () => {
 
   const handleAuthSubmit = (e) => {
     e.preventDefault();
+
+    if (isRegister) dispatch(register(authData, history));
   };
+
+  useEffect(() => {
+    if (errors.hasOwnProperty("success")) {
+      switch (errors.type) {
+        case "firstName":
+          setAuthError({
+            ...authInitialState,
+            firstName: errors.message,
+          });
+          break;
+        case "lastName":
+          setAuthError({
+            ...authInitialState,
+            lastName: errors.message,
+          });
+          break;
+        case "email":
+          setAuthError({
+            ...authInitialState,
+            email: errors.message,
+          });
+          break;
+        case "password":
+          setAuthError({
+            ...authInitialState,
+            password: errors.message,
+          });
+          break;
+        case "confirmPassword":
+          setAuthError({
+            ...authInitialState,
+            confirmPassword: errors.message,
+          });
+          break;
+        default:
+          setAuthError(authInitialState);
+      }
+    } else setAuthError(authInitialState);
+  }, [dispatch, errors]);
 
   const classes = useStyles();
   return (
@@ -83,7 +134,6 @@ const Auth = () => {
             <AuthInput
               name="email"
               label="Email Address"
-              type="email"
               handleChange={handleChange}
               error={authError.email !== ""}
               helperText={authError.email !== "" ? authError.email : ""}

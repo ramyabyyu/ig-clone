@@ -13,7 +13,9 @@ API.interceptors.request.use((req) => {
 
 // Auth
 export const register = (formData) => API.post("/register", formData);
-export const changeProfile = (avatar) => API.post("/change-profile", avatar);
+export const changeProfilePict = (id, avatar) => {
+  API.post(`/profile-picture/${id}`, avatar);
+};
 export const login = (formData) => API.post("/login", formData);
 
 // Post

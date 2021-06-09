@@ -20,7 +20,6 @@ const AuthInput = ({
         name={name}
         onChange={handleChange}
         variant="outlined"
-        required
         fullWidth
         label={label}
         autoFocus={autoFocus}

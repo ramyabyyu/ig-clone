@@ -9,9 +9,11 @@ export default (state = { authData: null, errors: {} }, action) => {
         authData: action.payload,
         errors: {},
       };
-    case authTypes.CHANGE_PROFILE:
+    case authTypes.AUTH_ERROR:
       return {
         ...state,
+        authData: null,
+        errors: action.payload,
       };
     default:
       return state;
