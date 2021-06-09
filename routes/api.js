@@ -11,7 +11,8 @@ const router = Router();
 
 // auth api
 router.post("/register", AuthController.register);
-router.post("/change-profile", auth, AuthController.changeProfile);
+// router.post("/profile-info/:id", auth, AuthController.changeProfile);
+router.post("/profile-picture/:id", auth, AuthController.changeProfilePicture);
 
 // post api
 router.get("/post", PostController.getPosts);

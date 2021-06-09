@@ -1,6 +1,21 @@
 import axios from "axios";
 
-const url = "http://127.0.0.1:8080/api";
+const API = axios.create({ baseURL: "http://127.0.0.1:8080/api" });
 
-export const getPosts = () => axios.get(`${url}/post`);
-export const createPost = (post) => axios.post(`${url}/post`, post);
+API.interceptors.request.use((req) => {
+  const authToken = localStorage.getItem("token");
+  if (authToken) {
+    req.headers.Authorization = `Bearer ${JSON.parse(authToken).token}`;
+  }
+
+  return req;
+});
+
+// Auth
+export const register = (formData) => API.post("/register", formData);
+export const changeProfile = (avatar) => API.post("/change-profile", avatar);
+export const login = (formData) => API.post("/login", formData);
+
+// Post
+export const getPosts = () => API.get("/post");
+export const createPost = (newPost) => API.post("/post", newPost);

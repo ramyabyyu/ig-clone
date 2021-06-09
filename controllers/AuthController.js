@@ -97,19 +97,31 @@ export const register = async (req, res) => {
   }
 };
 
-export const changeProfile = async (req, res) => {
-  const { avatar, bio, website, username } = req.body;
+export const changeProfilePicture = async (req, res) => {
+  const { avatar } = req.body;
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.json("User not found");
+
+  try {
+    await User.findByIdAndUpdate(id, { avatar }, { new: true });
+    res.status(200).json({ avatar });
+  } catch (error) {}
+};
+
+export const changeProfileInfo = async (req, res) => {
+  const { bio, website, username } = req.body;
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) return res.json("User not found");
 
   const validUsername = userNameValidate(username);
 
-  const changeProfileInfo = { avatar, bio, website, username: validUsername };
+  const updatedProfileInfo = { bio, website, username: validUsername };
 
   try {
-    await User.findByIdAndUpdate(id, changeProfileInfo, { new: true });
-    res.status(200).json(changeProfileInfo);
+    await User.findByIdAndUpdate(id, updatedProfileInfo, { new: true });
+    res.status(200).json(updatedProfileInfo);
   } catch (error) {
     res.status(500).json({
       success: false,
