@@ -141,7 +141,7 @@ const PostItem = ({ post }) => {
             <Typography variant="body2" component="p">
               {post.caption.substring(0, 115) + "..."}
             </Typography>
-            <Typography component={Button} onClick={setCaptionExpanded}>
+            <Typography component={Button} onClick={handleCaptionExpanded}>
               Show More
             </Typography>
           </>

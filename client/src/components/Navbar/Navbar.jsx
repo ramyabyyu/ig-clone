@@ -56,7 +56,7 @@ const Navbar = () => {
           <Button color="inherit">
             <FavoriteIcon />
           </Button>
-          <Button color="inherit">
+          <Button color="inherit" component={Link} to={Path.AUTH}>
             <AccountCircleIcon />
           </Button>
         </div>
