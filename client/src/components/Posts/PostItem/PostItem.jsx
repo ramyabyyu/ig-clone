@@ -18,6 +18,7 @@ import SendOutlinedIcon from "@material-ui/icons/SendOutlined";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import PlayArrowRoundedIcon from "@material-ui/icons/PlayArrowRounded";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import moment from "moment";
 
 // helpers
 import { checkFileType } from "../../../helpers/checkFileType";
@@ -126,6 +127,13 @@ const PostItem = ({ post }) => {
               ) : (
                 ""
               )}
+            </Typography>
+            <Typography
+              variant="body2"
+              className={classes.createdAt}
+              component="p"
+            >
+              {moment(post.createdAt).fromNow()}
             </Typography>
           </>
         ) : (

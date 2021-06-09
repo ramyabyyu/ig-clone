@@ -1,4 +1,4 @@
-import { blue, red } from "@material-ui/core/colors";
+import { blue, grey, red } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
@@ -38,5 +38,8 @@ export default makeStyles((theme) => ({
   tags: {
     color: blue[500],
     marginTop: theme.spacing(2),
+  },
+  createdAt: {
+    color: grey[500],
   },
 }));
