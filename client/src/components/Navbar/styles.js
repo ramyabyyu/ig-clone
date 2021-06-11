@@ -1,3 +1,4 @@
+import { grey } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
@@ -25,5 +26,9 @@ export default makeStyles((theme) => ({
     // position: "relative",
     // width: "100%",
     // background: "transparent",
+  },
+  avatar: {
+    backgroundColor: grey[500],
+    color: theme.palette.getContrastText(grey[500]),
   },
 }));
