@@ -1,4 +1,4 @@
-import { grey } from "@material-ui/core/colors";
+import { lightBlue } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
@@ -28,7 +28,7 @@ export default makeStyles((theme) => ({
     // background: "transparent",
   },
   avatar: {
-    backgroundColor: grey[500],
-    color: theme.palette.getContrastText(grey[500]),
+    backgroundColor: lightBlue[50],
+    color: theme.palette.getContrastText(lightBlue[50]),
   },
 }));

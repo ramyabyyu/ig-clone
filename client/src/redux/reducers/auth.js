@@ -15,6 +15,13 @@ export default (state = { authData: null, errors: {} }, action) => {
         authData: null,
         errors: action.payload,
       };
+    case authTypes.LOGOUT:
+      localStorage.clear();
+      return {
+        ...state,
+        authData: null,
+        errors: {},
+      };
     default:
       return state;
   }

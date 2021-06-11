@@ -28,7 +28,7 @@ import useStyles from "./styles";
 
 const Navbar = () => {
   // token
-  const authToken = localStorage.getItem("token");
+  const authToken = JSON.parse(localStorage.getItem("token"));
 
   const [user, setUser] = useState(authToken);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -52,6 +52,7 @@ const Navbar = () => {
     history.push(Path.AUTH);
     setUser(null);
     handleClose();
+    handleProfileClose();
   };
 
   useEffect(() => {
@@ -119,7 +120,7 @@ const Navbar = () => {
           <Button color="inherit">
             <FavoriteIcon />
           </Button>
-          {user?.data ? (
+          {user ? (
             <>
               <Button
                 color="inherit"
@@ -152,7 +153,7 @@ const Navbar = () => {
                   </Avatar>
                   {user?.data.name}
                 </MenuItem>
-                <MenuItem onClick={handleProfileClose}>
+                <MenuItem onClick={logout}>
                   <ExitToAppIcon /> Logout
                 </MenuItem>
               </Menu>
