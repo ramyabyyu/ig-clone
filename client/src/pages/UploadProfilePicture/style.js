@@ -4,12 +4,10 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   card: {
     minWidth: 275,
-  },
-  paper: {
-    marginTop: theme.spacing(3),
+    padding: theme.spacing(4),
     display: "flex",
+    flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
   },
   avatar: {
     color: theme.palette.getContrastText(grey[500]),
@@ -24,5 +22,12 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  profilePreview: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    width: "200px",
+    height: "200px",
+    objectFit: "contain",
   },
 }));

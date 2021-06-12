@@ -1,3 +1,10 @@
-const username = "RamyAbyyu1405";
+const testJson = {
+  name: "Ramy Abyyu",
+  email: "ramyadmin99@test.com",
+};
 
-console.log(username.toLowerCase());
+const testStringifyJson = JSON.stringify(testJson);
+
+const testName = JSON.parse(testStringifyJson);
+
+console.log(testName.name);

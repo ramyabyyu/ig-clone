@@ -22,7 +22,7 @@ function App() {
           <Route exact path={Path.AUTH} component={Auth} />
           <Route
             exact
-            path={Path.UPLOAD_PROFILE}
+            path={Path.CHANGE_PROFILE}
             component={UploadProfilePicture}
           />
         </Switch>

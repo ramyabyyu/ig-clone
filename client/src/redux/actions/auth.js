@@ -8,7 +8,7 @@ export const register = (formData, router) => async (dispatch) => {
 
     if (data.success) {
       dispatch({ type: authTypes.AUTH, payload: data });
-      router.push(Path.UPLOAD_PROFILE);
+      router.push(Path.CHANGE_PROFILE);
     } else {
       dispatch({ type: authTypes.AUTH_ERROR, payload: data });
     }
