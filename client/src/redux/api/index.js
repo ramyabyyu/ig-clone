@@ -13,8 +13,8 @@ API.interceptors.request.use((req) => {
 
 // Auth
 export const register = (formData) => API.post("/register", formData);
-export const changeProfilePict = (id, avatar) => {
-  API.post(`/profile-picture/${id}`, avatar);
+export const changeProfilePicture = (id, avatar) => {
+  API.post(`/change-profile-picture/${id}`, avatar);
 };
 export const login = (formData) => API.post("/login", formData);
 

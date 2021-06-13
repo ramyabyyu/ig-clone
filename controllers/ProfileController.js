@@ -1,6 +1,23 @@
 import User from "../models/User.js";
 import mongoose from "mongoose";
 
+export const changeProfilePicture = async (req, res) => {
+  const { avatar } = req.body;
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.json("User not found");
+
+  try {
+    await User.findByIdAndUpdate(id, { avatar }, { new: true });
+    res.status(200).json({ avatar });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message || "Internal Server Error",
+    });
+  }
+};
+
 export const changeProfileInfo = async (req, res) => {
   const { bio, website, username } = req.body;
   const { id } = req.params;

@@ -12,19 +12,12 @@ import { Link } from "react-router-dom";
 import * as Path from "../../routeNames";
 import useStyles from "./style";
 
-const profileDataInitialState = {
-  avatar: null,
-  website: "",
-  username: "",
-  bio: "",
-};
-
 const UploadProfilePicture = () => {
   const authToken = JSON.parse(localStorage.getItem("token"));
   const user = authToken?.data;
 
   const [profilePreview, setProfilePreview] = useState(null);
-  const [profileData, setProfileData] = useState(profileDataInitialState);
+  const [profileData, setProfileData] = useState(null);
 
   const hiddenUploadProfileBtn = useRef(null);
   const handleUploadProfileBtn = (e) => {
@@ -36,7 +29,7 @@ const UploadProfilePicture = () => {
 
     reader.onloadend = () => {
       setProfilePreview(reader.result);
-      setProfileData({ ...profileData, avatar: reader.result });
+      setProfileData(reader.result);
     };
 
     reader.readAsDataURL(image);

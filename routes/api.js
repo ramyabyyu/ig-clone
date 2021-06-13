@@ -15,6 +15,11 @@ router.post("/register", AuthController.register);
 
 // profile api
 router.post(
+  "/change-profile-picture/:id",
+  auth,
+  ProfileController.changeProfilePicture
+);
+router.post(
   "/change-profile-info/:id",
   auth,
   ProfileController.changeProfileInfo
