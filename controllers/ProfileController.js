@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import mongoose from "mongoose";
+import { userNameValidate } from "../helpers/index.js";
 
 export const changeProfilePicture = async (req, res) => {
   const { avatar } = req.body;

@@ -8,16 +8,22 @@ import {
   Typography,
 } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import * as Path from "../../routeNames";
 import useStyles from "./style";
+
+// actions
+import { changeProfilePicture } from "../../redux/actions/profile";
 
 const UploadProfilePicture = () => {
   const authToken = JSON.parse(localStorage.getItem("token"));
   const user = authToken?.data;
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const [profilePreview, setProfilePreview] = useState(null);
-  const [profileData, setProfileData] = useState(null);
+  const [profileData, setProfileData] = useState({ avatar: null });
 
   const hiddenUploadProfileBtn = useRef(null);
   const handleUploadProfileBtn = (e) => {
@@ -29,14 +35,10 @@ const UploadProfilePicture = () => {
 
     reader.onloadend = () => {
       setProfilePreview(reader.result);
-      setProfileData(reader.result);
+      setProfileData({ avatar: reader.result });
     };
 
     reader.readAsDataURL(image);
-  };
-
-  const handleProfileSubmit = (e) => {
-    e.preventDefault();
   };
 
   const classes = useStyles();
@@ -113,7 +115,13 @@ const UploadProfilePicture = () => {
               >
                 <AccountCircleIcon />
               </Avatar>
-              <Button color="primary" variant="contained">
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() =>
+                  dispatch(changeProfilePicture(user._id, profileData, history))
+                }
+              >
                 Upload
               </Button>
             </>

@@ -7,5 +7,8 @@ export const changeProfilePicture =
     try {
       const { data } = await api.changeProfilePicture(id, avatar);
       dispatch({ type: profileTypes.CHANGE_PROFILE_PICTURE, payload: data });
-    } catch (error) {}
+      router.push(Path.HOME);
+    } catch (error) {
+      console.log(error);
+    }
   };

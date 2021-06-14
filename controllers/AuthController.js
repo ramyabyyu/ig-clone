@@ -5,13 +5,14 @@ import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 
 // helpers
-import { isCapital, userNameValidate } from "../helpers/index.js";
+import { isCapital } from "../helpers/index.js";
 
 dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 
 export const register = async (req, res) => {
-  const { email, password, firstName, lastName, confirmPassword } = req.body;
+  const { email, password, firstName, lastName, confirmPassword, avatar } =
+    req.body;
 
   // check firstName and lastName character must be lower than 10
 
@@ -98,6 +99,7 @@ export const register = async (req, res) => {
       name: `${firstName} ${lastName}`,
       email,
       password: hashPassword,
+      avatar,
     });
 
     const token = jwt.sign({ email: data.email, id: data._id }, SECRET_KEY, {

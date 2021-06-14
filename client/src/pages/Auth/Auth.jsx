@@ -15,6 +15,7 @@ const authInitialState = {
   email: "",
   password: "",
   confirmPassword: "",
+  avatar: "",
 };
 
 const Auth = () => {
